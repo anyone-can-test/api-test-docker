@@ -33,6 +33,5 @@ jobs:
 
       - name: Build and push image
         run: |
-          ls -al
           ./all_build.sh
       
