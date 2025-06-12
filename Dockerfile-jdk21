@@ -1,0 +1,24 @@
+FROM maven:3.9.4-eclipse-temurin-21
+
+MAINTAINER hyunil.shin <hyunil.shin@nhn.com>
+
+USER root
+
+
+#===========================================
+# set locale ko_KR
+RUN apt-get update
+RUN apt-get install -y language-pack-gnome-ko language-pack-gnome-en
+RUN locale-gen ko_KR.UTF-8
+ENV LANG ko_KR.UTF-8
+ENV LANGUAGE ko_KR.UTF-8
+ENV LC_ALL ko_KR.UTF-8
+
+
+#==========================================
+# time and date
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y tzdata
+RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+ENV TZ=Asia/Seoul
+RUN echo "Asia/Seoul" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
+RUN date
